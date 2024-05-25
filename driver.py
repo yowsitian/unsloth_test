@@ -75,7 +75,7 @@ print(
     """)
 
 TRAINED_MODEL = os.getenv('TRAINED_MODEL')
-user_input_model_name = input("Please key in your desired model to finetune (Default: unsloth/llama-3-8b-bnb-4bit, Click ENTER to use default model): ")
+user_input_model_name = input("Please key in your desired model to finetune (Default: unsloth/llama-3-8b-bnb-4bit, click ENTER to use default model): ")
 user_input_model_name = TRAINED_MODEL if user_input_model_name is None or user_input_model_name == "" else user_input_model_name
 
 model, tokenizer = FastLanguageModel.from_pretrained(
@@ -143,7 +143,7 @@ pass
 from datasets import load_dataset
 
 TRAINING_DATASET_PATH = os.getenv('TRAINING_DATASET_PATH')
-user_input_training_dataset_path = input("Please key in your training dataset path (Default: yahma/alpaca-cleaned, click ENTER if you want to use default path): ")
+user_input_training_dataset_path = input("\nPlease key in your training dataset path (Default: yahma/alpaca-cleaned, click ENTER to use default path): ")
 if "https://huggingface.co/datasets/" in user_input_training_dataset_path:
     user_input_training_dataset_path = user_input_training_dataset_path.replace("https://huggingface.co/datasets/","")
 
