@@ -37,6 +37,10 @@ Use our [Llama-3 8b Instruct](https://colab.research.google.com/drive/1XamvWYinY
 
 from unsloth import FastLanguageModel
 import torch
+import os
+from dotenv import load_dotenv
+
+load_dotenv("myenv-variable.env")
 max_seq_length = 2048 # Choose any! We auto support RoPE Scaling internally!
 dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
 load_in_4bit = True # Use 4bit quantization to reduce memory usage. Can be False.
@@ -117,7 +121,9 @@ def formatting_prompts_func(examples):
 pass
 
 from datasets import load_dataset
-dataset = load_dataset("yahma/alpaca-cleaned", split = "train")
+
+TRAINING_DATASET_PATH = os.getenv('TRAINING_DATASET_PATH')
+dataset = load_dataset(TRAINING_DATASET_PATH, split = "train")
 dataset = dataset.map(formatting_prompts_func, batched = True,)
 
 """<a name="Train"></a>
