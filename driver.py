@@ -123,7 +123,11 @@ pass
 from datasets import load_dataset
 
 TRAINING_DATASET_PATH = os.getenv('TRAINING_DATASET_PATH')
-dataset = load_dataset(TRAINING_DATASET_PATH, split = "train")
+user_input_training_dataset_path = input("Please key in your training dataset path (Default: yahma/alpaca-cleaned, click ENTER if you want to use default path): ")
+if "https://huggingface.co/datasets/" in user_input_training_dataset_path:
+    user_input_training_dataset_path = user_input_training_dataset_path.replace("https://huggingface.co/datasets/","")
+
+dataset = load_dataset(user_input_training_dataset_path is None ? TRAINING_DATASET_PATH : user_input_training_dataset_path, split = "train")
 dataset = dataset.map(formatting_prompts_func, batched = True,)
 
 """<a name="Train"></a>
