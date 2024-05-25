@@ -59,7 +59,8 @@ fourbit_models = [
 ] # More models at https://huggingface.co/unsloth
 
 print(
-    """The available pre-trained models are as below:
+    """
+    The available pre-trained models are as below:
         unsloth/mistral-7b-v0.3-bnb-4bit,      
         unsloth/mistral-7b-instruct-v0.3-bnb-4bit,
         unsloth/llama-3-8b-bnb-4bit,          
@@ -70,12 +71,12 @@ print(
         unsloth/mistral-7b-bnb-4bit,
         unsloth/gemma-7b-bnb-4bit
 
-        You may browse more models at https://huggingface.co/unsloth !
+    You may browse more models at https://huggingface.co/unsloth
     """)
 
 TRAINED_MODEL = os.getenv('TRAINED_MODEL')
 user_input_model_name = input("Please key in your desired model to finetune (Default: unsloth/llama-3-8b-bnb-4bit, Click ENTER to use default model): ")
-user_input_model_name = TRAINED_MODEL if user_input_model_name is None else user_input_model_name
+user_input_model_name = TRAINED_MODEL if user_input_model_name is None or user_input_model_name == "" else user_input_model_name
 
 model, tokenizer = FastLanguageModel.from_pretrained(
     model_name = user_input_model_name,
@@ -146,7 +147,7 @@ user_input_training_dataset_path = input("Please key in your training dataset pa
 if "https://huggingface.co/datasets/" in user_input_training_dataset_path:
     user_input_training_dataset_path = user_input_training_dataset_path.replace("https://huggingface.co/datasets/","")
 
-dataset = load_dataset(TRAINING_DATASET_PATH if user_input_training_dataset_path is None else user_input_training_dataset_path, split = "train")
+dataset = load_dataset(TRAINING_DATASET_PATH if user_input_training_dataset_path is None or user_input_training_dataset_path == "" else user_input_training_dataset_path, split = "train")
 dataset = dataset.map(formatting_prompts_func, batched = True,)
 
 """<a name="Train"></a>
